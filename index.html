@@ -53,20 +53,41 @@
                     <section id="error-message-d" class="card-use card-rounded col-5 bg-link small-text text-link med-height">x</section>
                 </section>
             </section>
-            <div id="video-container"></div>
+
+            <section class="flex-row col-12 p-2">
+                <!-- View trailer section -->
+                <section id="video-container" class="col-6 p-2"></section>
+                <!-- Input search section -->
+                <section class="flex-row col-5 bg-light p-2 align-middle-ovrd align-center">
+                    <form id="searches-form" class="card-use card-rounded bg-link p-0">
+                        <label class="small-text text-white" for="search-name">Search Name:</label>
+                        <input type="text" id="search-name" name="search-name" class="small-text"
+                               placeholder="Enter new search name."/>
+                        <button class="btn btn-block btn-primary">Save Search</button>
+                    </form>
+                </section>
+            </section>
+
             <section id="video-title-container">
-              <div id='video-title'></div>
+                <div id="video-title"></div>
             </section>
-            <section id="video-description-container">
-              <div id='video-description'></div>
+            <section id="video-description-container" class="flex-row col-12 p-2">
+                <!-- Video description section -->
+                <div id="video-description" class="col-6 p-2"></div>
+
+                <!-- Previous search buttons section -->
+                <section id="prev-search-section" class="flex-row col-5 bg-light p-2">
+                    <ul id="previous-searches"</ul>
+                </section>
             </section>
+
             <div class="text-center pt-4">
-              <input type="text" id="search-input" placeholder="Enter movie name.">
-              <input type="text" id="year-input" placeholder="Enter movie year">
-              <button class="btn btn-primary" id="search-button">
-                Search for a film.
-              </button>
-              <button class='btn btn-primary' id='fullscreen-button'>Click For Full Screen</button>
+                <input type="text" id="search-input" placeholder="Enter movie name.">
+                <input type="text" id="year-input" placeholder="Enter movie year">
+                <button class="btn btn-primary" id="search-button">
+                    Search for a film.
+                </button>
+                <button class='btn btn-primary' id='fullscreen-button'>Click For Full Screen</button>
             </div>
         </main>
         <!-- Compressed JavaScript -->
