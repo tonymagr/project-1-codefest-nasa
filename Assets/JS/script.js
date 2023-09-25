@@ -4,7 +4,7 @@ let yearEl = $('input[id="year-input"]');
 let movieTitle, yearInp, posterElement;
 let requestURL;
 let apiKey = 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI';
-let defaultVideoId = 'rN7EAneK2ko';
+let defaultVideoId = 'utntGgcsZWI';
 
 function searchBoth (movieTitle, yearInp) {
   let omdbURL;
@@ -25,7 +25,7 @@ function searchBoth (movieTitle, yearInp) {
     
 
       if (data) {
-
+        // searchVideo (movieTitle, yearInp);
         let videoId = data.videoId;
 
         let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
@@ -42,10 +42,7 @@ function searchBoth (movieTitle, yearInp) {
   }
     
 function getMovieInfo () {
-  // var requestURL = 'http://www.omdbapi.com/?apikey=f0131303&';
-  // var requestURL = 'http://www.omdbapi.com/?i=tt3896198&apikey=f0131303';
-  // let requestURL = "http://www.omdbapi.com/?t=star+wars&y=1977&apikey=f0131303";
-  // requestURL = "http://www.omdbapi.com/?t=star+wars&apikey=f0131303";
+
   console.log(requestURL);
 
   fetch(requestURL)
@@ -68,7 +65,6 @@ function getMovieInfo () {
       }
       
       //Populate result fields
-      // Use data.Title
       $("#title").text("Title: " + data.Title);
       $("#actors").text("Actors: " + data.Actors);
       $("#awards").text("Awards: " + data.Awards);
@@ -125,14 +121,10 @@ function formSubmit(event) {
   } else {
     requestURL = "http://www.omdbapi.com/?t=" + movieTitle + "&y=" + yearInp + "&apikey=f0131303";
   }
-
-  // requestURL = "http://www.omdbapi.com/?t=star+wars&apikey=f0131303";
-  // requestURL = "http://www.omdbapi.com/?t=star+wars&y=1977&apikey=f0131303";
-  // requestURL = "http://www.omdbapi.com/?t=the+princess+bride&apikey=f0131303";
   getMovieInfo();
-
 }
 
+// Load video title and description
 function loadVideo (videoId) {
 $.ajax({
     url: "https://www.googleapis.com/youtube/v3/videos",
@@ -166,7 +158,7 @@ $.ajax({
   
   }
 
-// Search button
+// Pass search button info from OMDB API to YouTube
 $('.btn.btn-block.btn-primary').on('click', function () {
   const movieTitle = movieTitleEl.val().trim().replaceAll(" ", "+");
   const yearInp = yearEl.val().trim();
@@ -190,8 +182,10 @@ $('.btn.btn-block.btn-primary').on('click', function () {
           const videoItem = data.items[0];
           const videoId = videoItem.id.videoId;
           loadVideo(videoId);
+
         } else {
-          alert('No trailer found');
+          let modal = document.getElementById('modal');
+          let btn = document.getElementsByClassName('.btn-block.btn-primary');
         }
       },
       error: function (error) {
@@ -199,9 +193,12 @@ $('.btn.btn-block.btn-primary').on('click', function () {
       }
     });
   } else {
-    alert('Please enter search parameters.');
+    let modal = document.getElementById('modal');
+    let btn = document.getElementsByClassName('.btn-block.btn-primary');
   }
 });
+
+// Load JS after HTML
 
 $(document).ready(function() {
   loadVideo(defaultVideoId);
