@@ -1,80 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <!-- <link rel="stylesheet" href="./Develop/CSS/jass.css"/> -->
-        <!-- Compressed CSS - Foundation Framework -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css" 
-                crossorigin="anonymous">
-        <link rel="stylesheet" href="./Assets/CSS/style.css"/>
-        <title>Movie API calls</title>
-    </head>
-    <body>
-        <main class="col-auto p-4">
-            <section class="flex-row col-12 p-2">
-                <section class="flex-row col-4 bg-light p-2">
-                    <form id="movie-form" class="card-use card-rounded bg-link p-0">
-                        <fieldset>
-                            <legend class="text-white">Input Movie Title and Year:</legend>
-                            <label class="small-text text-white" for="movie-title">Movie Title ------- :</label>
-                            <input type="text" id="movie-title" name="movie-title" class="small-text"/>
-                            <label class="small-text text-white" for="year-input">Year (optional) --- :</label>
-                            <input type="text" id="year-input" name="year-input" class="small-text"/>
-                        </fieldset>
-                        <button class="btn btn-block btn-primary">Search</button>
-                    </form>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Assets/CSS/style.css"/>
+    <title>Movie API Calls</title>
+</head>
+<body>
+    <main class="col-auto p-4">
+        <section class="flex-row col-12 p-2">
+            <section class="flex-row col-4 bg-light p-2">
+                <form id="movie-form" class="card-use card-rounded bg-link p-0">
+                    <fieldset>
+                        <legend class="text-white">Search For Movies:</legend>
+                        <label class="small-text text-white" for="movie-title">Movie Title:</label>
+                        <input type="text" id="movie-title" name="movie-title" class="small-text"/>
+                        <label class="small-text text-white" for="year-input">Year (optional):</label>
+                        <input type="text" id="year-input" name="year-input" class="small-text"/>
+                    </fieldset>
+                    <button class="btn btn-block btn-primary">Search</button>
+                </form>
+            </section>
+            <section class="flex-row col-7 bg-light p-2">
+                <section class="card-use card-rounded col-4-ovrd bg-link p-0">
+                    <p id="title" class="small-text text-white"></p>
+                    <p id="actors" class="small-text text-white"></p>
+                    <p id="awards" class="small-text text-white"></p>
+                    <p id="country" class="small-text text-white"></p>
+                    <p id="director" class="small-text text-white"></p>
+                    <p id="genre" class="small-text text-white"></p>
+                    <p id="rated" class="small-text text-white"></p>
+                    <p id="released" class="small-text text-white"></p>
                 </section>
-                <section class="flex-row col-7 bg-light p-2">
-                    <section class="card-use card-rounded col-4-ovrd bg-link p-0">
-                        <p id="title" class="small-text text-white"></p>
-                        <p id="actors" class="small-text text-white"></p>
-                        <p id="awards" class="small-text text-white"></p>
-                        <p id="country" class="small-text text-white"></p>
-                        <p id="director" class="small-text text-white"></p>
-                        <p id="genre" class="small-text text-white"></p>
-                        <p id="rated" class="small-text text-white"></p>
-                        <p id="released" class="small-text text-white"></p>
-                    </section>
-                    <section class="card-use card-rounded col-4-ovrd bg-link p-0">
-                        <p id="language" class="small-text text-white"></p>
-                        <p id="imdb-rating" class="small-text text-white"></p>
-                        <p id="runtime" class="small-text text-white"></p>
-                        <p id="plot-label" class="small-text text-white p-plot"></p>
-                        <p id="plot" class="small-text text-white p-plot"></p>
-                        </section>
-                    <section id="poster-frame" 
-                        class="is-visible text-center card-use card-rounded col-4-ovrd bg-link p-0">
-                    </section>
+                <section class="card-use card-rounded col-4-ovrd bg-link p-0">
+                    <p id="language" class="small-text text-white"></p>
+                    <p id="imdb-rating" class="small-text text-white"></p>
+                    <p id="runtime" class="small-text text-white"></p>
+                    <p id="plot-label" class="small-text text-white p-plot"></p>
+                    <p id="plot" class="small-text text-white p-plot"></p>
                 </section>
+                <section id="poster-frame" class="is-visible text-center card-use card-rounded col-4-ovrd bg-link p-0"></section>
             </section>
-            <section class="flex-row align-right col-11 p-2">
-                <section class="flex-row align-center col-7 bg-light p-2">
-                    <section id="error-message-d" class="card-use card-rounded col-5 bg-link small-text text-link med-height">x</section>
-                </section>
+        </section>
+        <section class="flex-row align-right col-11 p-2">
+            <section class="flex-row align-center col-7 bg-light p-2">
+                <section id="error-message-d" class="card-use card-rounded col-5 bg-link small-text text-link med-height">x</section>
             </section>
-            <div id="video-container"></div>
-            <section id="video-title-container">
-              <div id='video-title'></div>
-            </section>
-            <section id="video-description-container">
-              <div id='video-description'></div>
-            </section>
+        </section>
+        <section id="video-title-container">
+            <div id="video-title"></div>
+        </section>
+        <section class="flex-row col-12 p-2">
+            <section id="video-container" class="col-6 p-2"></section>
             <div class="text-center pt-4">
-              <input type="text" id="search-input" placeholder="Enter movie name.">
-              <input type="text" id="year-input" placeholder="Enter movie year">
-              <button class="btn btn-primary" id="search-button">
-                Search for a film.
-              </button>
-              <button class='btn btn-primary' id='fullscreen-button'>Click For Full Screen</button>
+                <input type="text" id="search-input" placeholder="Enter movie name." class="large-text"/>
+                <input type="text" id="year-input" placeholder="Enter movie year" class="large-text"/>
+                <button class="btn btn-primary" id="search-button">Search for Trailer</button>
+                <button class="btn btn-primary" id="fullscreen-button">Full Screen</button>
             </div>
-        </main>
-        <!-- Compressed JavaScript -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <!-- Compressed JavaScript - Foundation Framework -->
-        <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js" 
-                crossorigin="anonymous"></script>
-        <!-- <script type="text/javascript" src="Develop/JS/script.js"></script> -->
-        <script src="./Assets/JS/script.js"></script>
-    </body>
+        </section>
+        <section id="video-description-container" class="flex-row col-12 p-2">
+            <div id="video-description" class="col-6 p-2"></div>
+            <section class="flex-row col-5 bg-light p-2 align-middle-ovrd align-center">
+                <form id="searches-form" class="card-use card-rounded bg-link p-0">
+                    <label class="small-text text-white" for="search-name">Search Name:</label>
+                    <input type="text" id="search-name" name="search-name" class="small-text" placeholder="Enter new search name."/>
+                    <button class="btn btn-block btn-primary">Save Search</button>
+                </form>
+            </section>        
+            <section id="prev-search-section" class="flex-row col-5 bg-light p-2">
+                <ul id="previous-searches">
+                    <body>
+                        <!-- Add your previous search items here -->
+                        <ul id="previous-searches">
+                            <li>
+                                Search Term 1
+                                <button>Button 1</button>
+                            </li>
+                            <li>
+                                Search Term 2
+                                <button>Button 2</button>
+                            </li>
+                            <li>
+                                Search Term 3
+                                <button>Button 3</button>
+                            </li>
+                        </ul>
+                    </body>
+                </ul>
+            </section>
+        </section> 
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js" crossorigin="anonymous"></script>
+    <script src="./Assets/JS/script.js"></script>
+</body>
 </html>
