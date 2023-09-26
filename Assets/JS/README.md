@@ -1,5 +1,10 @@
 ## TRAILER-PHONE (A Web-based movie lover's application)##
 
+#ELEVATOR PITCH - 
+
+Have you ever gone down a wormhole looking for a good movie to watch with friends? Do you ever get decision fatigue from scrolling through the mountains of choices on HBO, Netflix, or other streaming service? Well, TrailerPhone has all the details and resources you need to make those decisions more quickly and find a movie that you will love. TrailerPhone gives you relevant details about a movie and pulls up the trailer from YouTube instantly so you can get started watching instead of scrolling through choices. 
+
+
 #DESCRIPTION
 
 A web application that gives you interesting details about movies, and a built in function that pulls up the trailer for that movie when given a year for that title.
