@@ -1,6 +1,76 @@
+
+
+
+/* background image to the body */
+body {
+    background-image: url('/Users/silvia/Documents/bootcamp/classwork_repo/project1-trailer-phone-imyou/Assets/geometric_mosaic_tile_shape_background.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-color: #000000; 
+}
+
+/* Apply styles to the list items and buttons */
+#previous-searches {
+    list-style: none;
+    padding: 0;
+}
+
+#previous-searches li {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    margin: 10px 0;
+}
+
+#previous-searches button {
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
 /* xxxxxxxxxxxxxxxxx */
 /* Additional styles */
 /* xxxxxxxxxxxxxxxxx */
+
+#error-message-d {
+    width: 80%; 
+    margin: 0 auto; 
+    text-align: center; 
+}
+
+.large-text {
+    width: 80%; 
+}
+
+.bordered-box {
+    border: 1px solid #000; 
+    padding: 10px; 
+}
+
+.thematic-background {
+    background-color: #3498db; 
+    padding: 5px; 
+}
+
+.slide-right {
+    float: right; 
+}
+
+
+#video-description-container {
+    float: right; 
+    
+}
+
+
+
+
+
+
 .small-text {
     font-size: 0.75rem;
 }
@@ -105,6 +175,15 @@ padding: 1.625rem;
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
+
+#video-container,
+#video-title-container,
+#video-description-container {
+    float: right; 
+}
+
+
+
 }
 
 .col-auto {
@@ -174,17 +253,15 @@ max-width: 100%;
 }
 /* BACKGROUND UTILS */
 .bg-primary {
-background-color: #2d3e50;
+background-color: #ffffff;
 }
 .bg-info {
-background-color: #1bbc9b;
+background-color: #ffffff;
 }
 .bg-danger {
 background-color: #e64c66;
 }
-.bg-light {
-background-color: #d9e9e8;
-}
+
 .bg-dark {
 background-color: #1a1a1a;
 }
@@ -194,9 +271,7 @@ background-color: #ffffff;
 .bg-black {
 background-color: #000000;
 }
-.bg-link {
-background-color: #1b89bc;
-}
+
 .text-uppercase {
     text-transform: uppercase;
 }
@@ -238,15 +313,15 @@ background-color: #1b89bc;
 }
 
 .text-dark {
-    color: #1a1a1a;
+    color: #000000;
 }
 
 .text-white {
-    color: #ffffff;
+    color: #000000;
 }
 
 .text-black {
-    color: #000000;
+    color: #bb2e2e;
 }
 
 .text-link {
@@ -254,7 +329,7 @@ background-color: #1b89bc;
 }
 
 .card-use {
-    border: 1px solid #1a1a1a;
+    border: 1px solid rgb(255 255 255 / 4%);;
     /* margin-bottom: 1rem; */
     margin: 0rem .15rem;
 }
@@ -368,7 +443,7 @@ background-color: #1b89bc;
 }
 
 .btn.btn-dark {
-    background-color: #1a1a1a;
+    background-color: #ba2424;
     color: #d9e9e8;
 }
 
