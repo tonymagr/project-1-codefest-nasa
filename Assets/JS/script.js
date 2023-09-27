@@ -90,7 +90,11 @@ function titleFormSubmit(event) {
     requestURL = "http://www.omdbapi.com/?t=" + movieTitle + "&y=" + yearInp + "&apikey=f0131303";
   }
 
+  // Make OMDb API call
   getMovieInfo();
+  // Call to render same video from search at the top
+  console.log("Ready to render");
+  renderVideo();
 }
 
 prevSearchEl.on("click", function(event) {
@@ -217,28 +221,70 @@ function resetLocalStorage () {
   }
 }
 
-function requestFullScreen (element) {
-  if (element.requestFullScreen) {
-    element.requestFullScreen();
-
-  } else if (element.mozRequestFullScreen) {
-  element.mozRequestFullScreen();
-
-} else if (element.webkitRequestFullscreen) {
-  element.webkitRequestFullscreen();
-
-} else if (element.msRequestFullscreen) {
-  element.msRequestFullscreen();
+function searchBoth (movieTitle, yearInp) {
+  let omdbURL;
+  if (yearInp) {
+    omdbURL = `http://www.omdbapi.com/?t=${movieTitle}&y=${yearInp}&apikey=f0131303&`
+  } else {
+    omdbURL = `http://www.omdbapi.com/?t=${movieTitle}&apikey=f0131303&`;
+  }
+  fetch(omdbURL)
+    .then (function (response) {
+      return response.json();
+    })
+    .then (function (data) {
+      console.log("OMDB Data", data);
+      if (data) {
+        searchVideo (movieTitle, yearInp);
+        const videoId = data.videoId;
+        let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
+        $('#video-container').html(iframeHtml);
+      }
+    })
 }
 
+// Pass search button info from OMDB API to YouTube
+
+// $('.btn.btn-block.btn-primary').on('click', function () {
+
+function renderVideo () {
+  // const movieTitle = movieTitleEl.val().trim().replaceAll(" ", "+");
+  // const yearInp = yearEl.val().trim();
+
+  if (movieTitle) {
+    searchBoth (movieTitle, yearInp);
+    const youtubeRequest = {
+      key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
+      q: movieTitle + yearInp +  'trailer',
+      part: 'snippet',
+      maxResults: 1,
+      type: 'video'
+    };
+
+    $.ajax({
+      url: "https://www.googleapis.com/youtube/v3/search",
+      dataType: 'json',
+      data: youtubeRequest,
+      success: function (data) {
+        if (data.items && data.items.length > 0) {
+          const videoItem = data.items[0];
+          const videoId = videoItem.id.videoId;
+          loadVideo(videoId);
+        } else {
+          let modal = document.getElementById('modal');
+          let btn = document.getElementsByClassName('.btn-block.btn-primary');
+        }
+      },
+      error: function (error) {
+        console.error("Error fetching data", error);
+      }
+    });
+  } else {
+    $("#error-message-d").css("color","white");
+    $("#error-message-d").html("Please enter search parameters.");
+  }
 }
 
-document.getElementById('fullscreen-button').addEventListener ('click', function() {
-
-  const videoContainer = document.getElementById('video-container');
-  requestFullScreen(videoContainer);
-
-});
 
 function loadVideo (videoId) {
 $.ajax({
@@ -287,64 +333,6 @@ $.ajax({
   
   }
 
-document.getElementById('search-button').addEventListener('click', function () {
-
-  loadVideo (defaultVideoId);
-});
-
-document.getElementById('search-button').addEventListener('click', function () {
-  const searchParameters = document.getElementById('search-input').value.trim();
-  const year = document.getElementById('year-input').value.trim();
-  if (searchParameters) {
-    const requestData = {
-      key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
-      q: searchParameters + 'trailers',
-      part: 'snippet',
-      maxResults: 1,
-      type: 'video'
-    };
-
-    $.ajax ({
-      url: "https://www.googleapis.com/youtube/v3/search",
-      dataType: 'json',
-      data: requestData, 
-
-      success: function (data) {
-        if (data.items && data.items.length > 0) {
-
-          const videoItem = data.items.find(item => {
-            const description = item.snippet.description.toLowerCase();
-            return description.includes(year);
-            
-          });
-
-          if (videoItem) {
-          const videoId = videoItem.id.videoId;
-          loadVideo(videoId);
-
-        } else {
-          alert ('No results found in year.');
-
-        }
-      } else {
-        
-        alert ('No results founds.');
-      }
-    },
-
-  error: function (error) {
-    alert ('An error occurred while fetching YouTube data');
-    console.error(error);
-
-      }
-  });
-
-} else {
-  alert ('Please enter search parameters.');
-
-  }
-
-});
 
 // -------
 // MAIN
