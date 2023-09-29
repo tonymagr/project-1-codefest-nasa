@@ -223,6 +223,7 @@ function resetLocalStorage () {
 
 function searchBoth (movieTitle, yearInp) {
   let omdbURL;
+  console.log(yearInp);
   if (yearInp) {
     omdbURL = `http://www.omdbapi.com/?t=${movieTitle}&y=${yearInp}&apikey=f0131303&`
   } else {
@@ -235,7 +236,6 @@ function searchBoth (movieTitle, yearInp) {
     .then (function (data) {
       console.log("OMDB Data", data);
       if (data) {
-        searchVideo (movieTitle, yearInp);
         const videoId = data.videoId;
         let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
         $('#video-container').html(iframeHtml);
@@ -348,5 +348,3 @@ renderPrevSearches();
 // Listen for submit events on the forms
 titleFormEl.on("submit", titleFormSubmit);
 searchesFormEl.on("submit",searchNameFormSubmit);
-
-// test change
