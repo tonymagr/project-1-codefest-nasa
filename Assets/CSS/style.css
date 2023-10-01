@@ -5,7 +5,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #000000;
+    /* background-color: #000000; */
 }
 /* Apply styles to the list items and buttons */
 #previous-searches {
@@ -19,12 +19,16 @@ body {
     margin: 10px 0;
 }
 #previous-searches button {
-    background-color: #007BFF;
+    background-color: #2D3E50;
     color: #fff;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
 }
+#previous-searches button:hover {
+    background-color: #57779A;
+}
+
 /* xxxxxxxxxxxxxxxxx */
 /* Additional styles */
 /* xxxxxxxxxxxxxxxxx */
@@ -32,9 +36,6 @@ body {
     width: 80%;
     margin: 0 auto;
     text-align: center;
-}
-.large-text {
-    width: 80%;
 }
 .bordered-box {
     border: 1px solid #000;
@@ -52,6 +53,15 @@ body {
 }
 .small-text {
     font-size: 0.75rem;
+}
+.large-text {
+    font-size: 1.25rem;
+}
+.mid-text {
+    font-size: 1rem;
+}
+.strong-ovrd {
+    font-weight: bold;
 }
 p {
     line-height: 1rem;
@@ -76,9 +86,19 @@ input, label {
 .justify-end {
     justify-content: end;
 }
+.justify-center {
+    justify-content: center;
+}
 .med-height {
     line-height: 2;
 }
+.auto-height {
+    height: auto;
+}
+.half-height {
+    height: 50%;
+}
+
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
 /* Bootstrap styles not found in Foundation */
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
@@ -244,17 +264,18 @@ background-color: #000000;
 .text-dark {
     color: #000000;
 }
-.text-white {
+.text-black {
     color: #000000;
 }
-.text-black {
+.text-red {
     color: #BB2E2E;
 }
 .text-link {
     color: #1B89BC;
 }
 .card-use {
-    border: 1px solid rgb(255 255 255 / 4%);;
+    /* border: 1px solid rgb(255 255 255 / 4%); */
+    border: 1px solid #57779A;
     /* margin-bottom: 1rem; */
     margin: 0rem .15rem;
 }
@@ -272,6 +293,8 @@ background-color: #000000;
 }
 .card-use.card-rounded {
     border-radius: 0.3rem;
+    /* border: 1px solid rgb(255 255 255 / 4%); */
+    border: 1px solid #57779A;
 }
 .card-use.card-rounded .card-header {
     border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
@@ -293,6 +316,10 @@ background-color: #000000;
 .btn:hover {
     background-color: #CECECE;
 }
+.btn-basic {
+    border-radius: 0.3rem;
+    font-weight: lighter;
+}
 .btn.btn-squared {
     border-radius: 0;
 }
@@ -303,7 +330,7 @@ background-color: #000000;
 .btn.btn-lg {
     font-size: 1.25rem;
     padding: 0.8rem 1.4rem;
-}
+}ong-ovrd
 .btn.btn-block {
     width: 100%;
     display: block;

@@ -11,14 +11,14 @@
 </head>
 <body>
     <main class="col-auto p-4">
-        <section class="flex-row col-12 p-2">
-            <section class="flex-row col-4 bg-light p-2">
+        <section class="flex-row col-12 p-2 auto-height">
+            <section class="flex-row col-4 bg-light p-2 justify-center">
                 <form id="movie-form" class="card-use card-rounded bg-link p-0">
                     <fieldset>
-                        <legend class="text-white">Search For Movies:</legend>
-                        <label class="small-text text-white" for="movie-title">Movie Title:</label>
+                        <legend class="text-black">Search For Movies:</legend>
+                        <label class="small-text text-black" for="movie-title">Movie Title:</label>
                         <input type="text" id="movie-title" name="movie-title" class="small-text"/>
-                        <label class="small-text text-white" for="year-input">Year (optional):</label>
+                        <label class="small-text text-black" for="year-input">Year (optional):</label>
                         <input type="text" id="year-input" name="year-input" class="small-text"/>
                     </fieldset>
                     <button class="btn btn-block btn-primary">Search</button>
@@ -26,28 +26,29 @@
             </section>
             <section class="flex-row col-7 bg-light p-2">
                 <section class="card-use card-rounded col-4-ovrd bg-link p-0">
-                    <p id="title" class="small-text text-white"></p>
-                    <p id="actors" class="small-text text-white"></p>
-                    <p id="awards" class="small-text text-white"></p>
-                    <p id="country" class="small-text text-white"></p>
-                    <p id="director" class="small-text text-white"></p>
-                    <p id="genre" class="small-text text-white"></p>
-                    <p id="rated" class="small-text text-white"></p>
-                    <p id="released" class="small-text text-white"></p>
+                    <p id="title" class="small-text text-black"></p>
+                    <p id="actors" class="small-text text-black"></p>
+                    <p id="awards" class="small-text text-black"></p>
+                    <p id="country" class="small-text text-black"></p>
+                    <p id="director" class="small-text text-black"></p>
+                    <p id="genre" class="small-text text-black"></p>
+                    <p id="rated" class="small-text text-black"></p>
+                    <p id="released" class="small-text text-black"></p>
                 </section>
                 <section class="card-use card-rounded col-4-ovrd bg-link p-0">
-                    <p id="language" class="small-text text-white"></p>
-                    <p id="imdb-rating" class="small-text text-white"></p>
-                    <p id="runtime" class="small-text text-white"></p>
-                    <p id="plot-label" class="small-text text-white p-plot"></p>
-                    <p id="plot" class="small-text text-white p-plot"></p>
+                    <p id="language" class="small-text text-black"></p>
+                    <p id="imdb-rating" class="small-text text-black"></p>
+                    <p id="runtime" class="small-text text-black"></p>
+                    <p id="plot-label" class="small-text text-black p-plot"></p>
+                    <p id="plot" class="small-text text-black p-plot"></p>
                 </section>
                 <section id="poster-frame" class="is-visible text-center card-use card-rounded col-4-ovrd bg-link p-0"></section>
             </section>
         </section>
         <section class="flex-row align-right col-11 p-2">
-            <section class="flex-row align-center col-7 bg-light p-2">
-                <section id="error-message-d" class="card-use card-rounded col-5 bg-link small-text text-link med-height">x</section>
+            <section class="flex-row align-center col-5 bg-light p-2">
+                <section id="error-message-d" 
+                        class="card-use card-rounded col-5 bg-link small-text text-light med-height">x</section>
             </section>
         </section>
         <section id="video-title-container">
@@ -55,36 +56,18 @@
         </section>
         <section class="flex-row col-12 p-2">
             <section id="video-container" class="col-6 p-2"></section>
-        </section>
-        <section id="video-description-container" class="flex-row col-12 p-2">
-            <div id="video-description" class="col-6 p-2"></div>
-            <section class="flex-row col-5 bg-light p-2 align-middle-ovrd align-center">
+            <section class="flex-row col-5 bg-light p-2 align-middle-ovrd align-center half-height">
                 <form id="searches-form" class="card-use card-rounded bg-link p-0">
-                    <label class="small-text text-white" for="search-name">Search Name:</label>
+                    <label class="mid-text text-black" for="search-name">Search Name:</label>
                     <input type="text" id="search-name" name="search-name" class="small-text" placeholder="Enter new search name."/>
                     <button class="btn btn-block btn-primary">Save Search</button>
                 </form>
             </section>
-            <section id="prev-search-section" class="flex-row col-5 bg-light p-2">
-                <ul id="previous-searches">
-                    <body>
-                        <!-- Add your previous search items here -->
-                        <ul id="previous-searches">
-                            <li>
-                                Search Term 1
-                                <button>Button 1</button>
-                            </li>
-                            <li>
-                                Search Term 2
-                                <button>Button 2</button>
-                            </li>
-                            <li>
-                                Search Term 3
-                                <button>Button 3</button>
-                            </li>
-                        </ul>
-                    </body>
-                </ul>
+        </section>
+        <section id="video-description-container" class="flex-row col-12 p-2">
+            <div id="video-description" class="col-6 p-2 card-use card-rounded"></div>
+            <section id="prev-search-section" class="flex-row col-5 p-2 card-use card-rounded">
+                <ul id="previous-searches"></ul>
             </section>
         </section>
     </main>
@@ -92,4 +75,24 @@
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js" crossorigin="anonymous"></script>
     <script src="./Assets/JS/script.js"></script>
 </body>
+
+<!-- <body> -->
+    <!-- Add your previous search items here -->
+    <!-- <ul id="previous-searches"> -->
+        <!-- <li> -->
+            <!-- Search Term 1 -->
+            <!-- <button>Button 1</button> -->
+        <!-- </li> -->
+        <!-- <li> -->
+            <!-- Search Term 2 -->
+            <!-- <button>Button 2</button> -->
+        <!-- </li> -->
+        <!-- <li> -->
+            <!-- Search Term 3 -->
+            <!-- <button>Button 3</button> -->
+        <!-- </li> -->
+    <!-- </ul> -->
+<!-- </body> -->
+
 </html>
+

@@ -14,63 +14,43 @@ let movieEntry = {schName:"", movTitle:"", yr:"", omdbUrl:""};
 
 // Save select movie attributes for use in functions
 let mTitle = "";
-let mYear, mRequestURL;
+let mYear, mRequestURL, videoId;
 
-function getMovieInfo () {
-  // let requestURL = "http://www.omdbapi.com/?t=star+wars&y=1977&apikey=f0131303";
-  fetch(requestURL)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // Display any error from site if present
-      if (data.Error === undefined) {
-        // No error - display nothing
-        $("#error-message-d").css("color","#1b89bc");
-        $("#error-message-d").html("x");
-      } else {
-        // Error found
-        $("#error-message-d").css("color","white");
-        $("#error-message-d").html(data.Error);
-      }
-      
-      //Populate result fields
-      $("#title").text("Title: " + data.Title);
-      mTitle = data.Title;
-      $("#actors").text("Actors: " + data.Actors);
-      $("#awards").text("Awards: " + data.Awards);
-      $("#country").text("Country: " + data.Country);
-      $("#director").text("Director: " + data.Director);
-      $("#genre").text("Genre: " + data.Genre);
-      $("#language").text("Language: " + data.Language);
-      $("#plot-label").html("Plot:");
-      $("#plot").text(data.Plot);
-      $("#rated").text("Rated: " + data.Rated);
-      $("#imdb-rating").text("IMDb Rating: " + data.imdbRating + " out of 10.0");
-      $("#released").text("Released: " + data.Released);
-      mYear = data.Year;
-      $("#runtime").text("Run-time: " + data.Runtime);
-      // Place poster
-      $("#poster-frame").empty();
-      posterElement = `<img id="poster" alt="Film Poster" height="250px" width="160px" src="` + data.Poster + `"/>`
-      $("#poster-frame").append(posterElement);
-    })
-    // Catch for internet connection down or similar
-    // From https://stackoverflow.com/questions/50330795/fetch-api-error-handling
-    .catch(error => {
-      if (typeof error.json === "function") {
-          error.json().then(jsonError => {
-              console.log("Json error from API");
-              console.log(jsonError);
-          }).catch(error => {
-              console.log("Generic error from API");
-              console.log(error.statusText);
-          });
-      } else {
-          console.log("Fetch error");
-          console.log(error);
-      }
-    })
+
+async function getMovieInfo () {
+  try {
+    const response = await fetch(requestURL);
+    const data = await response.json();
+    if (!response.ok) {
+      $("#error-message-d").css("color","black");
+      $("#error-message-d").html("OMDb call: " + response.statusText);
+      return;
+    }
+    //Populate result fields
+    $("#title").text("Title: " + data.Title);
+    mTitle = data.Title;
+    $("#actors").text("Actors: " + data.Actors);
+    $("#awards").text("Awards: " + data.Awards);
+    $("#country").text("Country: " + data.Country);
+    $("#director").text("Director: " + data.Director);
+    $("#genre").text("Genre: " + data.Genre);
+    $("#language").text("Language: " + data.Language);
+    $("#plot-label").html("Plot:");
+    $("#plot").text(data.Plot);
+    $("#rated").text("Rated: " + data.Rated);
+    $("#imdb-rating").text("IMDb Rating: " + data.imdbRating + " out of 10.0");
+    $("#released").text("Released: " + data.Released);
+    mYear = data.Year;
+    $("#runtime").text("Run-time: " + data.Runtime);
+    // Place poster
+    $("#poster-frame").empty();
+    posterElement = `<img id="poster" alt="Film Poster" height="250px" width="160px" src="` + data.Poster + `"/>`
+    $("#poster-frame").append(posterElement);
+  }
+  catch (err) {
+    $("#error-message-d").css("color","black");
+    $("#error-message-d").html("OMDb call: JSON or fetch error");
+  }
 }
 
 function titleFormSubmit(event) {
@@ -90,10 +70,15 @@ function titleFormSubmit(event) {
     requestURL = "http://www.omdbapi.com/?t=" + movieTitle + "&y=" + yearInp + "&apikey=f0131303";
   }
 
+  // Make both API calls for description and trailer
+  renderAllMovieData();
+}
+
+async function renderAllMovieData () {
   // Make OMDb API call
-  getMovieInfo();
+  await getMovieInfo();
+
   // Call to render same video from search at the top
-  console.log("Ready to render");
   renderVideo();
 }
 
@@ -106,7 +91,7 @@ prevSearchEl.on("click", function(event) {
     i = element.id[3];
     requestURL = locStorArray[i].omdbUrl
 
-    getMovieInfo();
+    renderAllMovieData();
   }
 
   if (element.matches("button") && element.className.substring(10,30).trim() === "delete-button") {
@@ -131,7 +116,7 @@ function renderPrevSearches () {
   // Clear previous searches (UL) display
   prevSearchEl.html("");
   prevSearchEl.html("Previous Searches");
-  prevSearchEl.addClass("strong-ovrd");
+  prevSearchEl.addClass("strong-ovrd");  
 
   // If there were any stored movies, render them 
   $.each(locStorArray, function(i) {
@@ -140,6 +125,7 @@ function renderPrevSearches () {
     prevSearchEl.append('<li id="li' + i + '">' + savedMovie + '</li>');
     savedMovieEl = $("#li"+i);
     savedMovieEl.css("font-weight","normal");
+    savedMovieEl.addClass("small-text");
     savedMovieEl.data("data-index",i);
 
     // Create buttons on li
@@ -164,13 +150,13 @@ function searchNameFormSubmit(event) {
   // Check for input errors...
   // No movie selected
   if (mTitle === "") {
-    $("#error-message-d").css("color","white");
+    $("#error-message-d").css("color","black");
     $("#error-message-d").html("No movie selected.");
     return;
   }
   // No search name entered
   if (searchName === "") {
-    $("#error-message-d").css("color","white");
+    $("#error-message-d").css("color","black");
     $("#error-message-d").html("No search name selected.");
     return;
   }
@@ -178,19 +164,19 @@ function searchNameFormSubmit(event) {
   for (i = 0; i < locStorArray.length; i++) {
     // Case insensitive compare (localeCompare returns 0 if equal and non-0 if not. Must bang it for truthy.)
     if (!searchName.localeCompare(locStorArray[i].schName,undefined,{sensitivity: "accent"})) {
-      $("#error-message-d").css("color","white");
+      $("#error-message-d").css("color","black");
       $("#error-message-d").html("Search name already used.");
       return;
     }
   }
   // Max saves reached
   if (locStorArray.length >= 7) {
-    $("#error-message-d").css("color","white");
+    $("#error-message-d").css("color","black");
     $("#error-message-d").html("Maximum 7 saved searches.");
     return;
   }
   // No error - clear display
-  $("#error-message-d").css("color","#1b89bc");
+  $("#error-message-d").css("color","white");
   $("#error-message-d").html("x");
 
   // Save in local storage and internal array
@@ -221,45 +207,19 @@ function resetLocalStorage () {
   }
 }
 
-function searchBoth (movieTitle, yearInp) {
-  let omdbURL;
-  console.log(yearInp);
-  if (yearInp) {
-    omdbURL = `http://www.omdbapi.com/?t=${movieTitle}&y=${yearInp}&apikey=f0131303&`
-  } else {
-    omdbURL = `http://www.omdbapi.com/?t=${movieTitle}&apikey=f0131303&`;
-  }
-  fetch(omdbURL)
-    .then (function (response) {
-      return response.json();
-    })
-    .then (function (data) {
-      console.log("OMDB Data", data);
-      if (data) {
-        const videoId = data.videoId;
-        let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
-        $('#video-container').html(iframeHtml);
-      }
-    })
-}
-
 // Pass search button info from OMDB API to YouTube
 
-// $('.btn.btn-block.btn-primary').on('click', function () {
-
 function renderVideo () {
-  // const movieTitle = movieTitleEl.val().trim().replaceAll(" ", "+");
-  // const yearInp = yearEl.val().trim();
-
-  if (movieTitle) {
-    searchBoth (movieTitle, yearInp);
+  if (mTitle) {
+    // Render video
     const youtubeRequest = {
       key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
-      q: movieTitle + yearInp +  'trailer',
+      q: mTitle + mYear +  'trailer',
       part: 'snippet',
       maxResults: 1,
       type: 'video'
     };
+    // q: movieTitle + yearInp +  'trailer',
 
     $.ajax({
       url: "https://www.googleapis.com/youtube/v3/search",
@@ -277,14 +237,16 @@ function renderVideo () {
       },
       error: function (error) {
         console.error("Error fetching data", error);
+        $("#error-message-d").css("color","black");
+        $("#error-message-d").html("Cannot retrieve video.");
       }
     });
   } else {
-    $("#error-message-d").css("color","white");
-    $("#error-message-d").html("Please enter search parameters.");
+    $("#error-message-d").css("color","black");
+    $("#error-message-d").html("Movie title not found.");
+    loadVideo(defaultVideoId);
   }
 }
-
 
 function loadVideo (videoId) {
 $.ajax({
@@ -295,16 +257,6 @@ $.ajax({
     part: 'snippet',
     id: videoId
   },
-
-// function loadVideo (videoId) {
-//   $.ajax({
-//       url: "https://www.googleapis.com/youtube/v3/videos",
-//       dataType: 'json',
-//       data: {
-//       key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
-//       part: 'snippet',
-//       id: videoId
-//     },
 
     success: function (data) {
       
@@ -319,20 +271,12 @@ $.ajax({
         description.innerHTML = videoDescription;
       }
   
-  
       let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
-  
-      
-      console.log("🚀 ~ file: script.js:53 ~ data:", data);
-  
+      // console.log("🚀 ~ data:", data);
       $('#video-container').html(iframeHtml);
-  
     }
-    
   });
-  
   }
-
 
 // -------
 // MAIN
@@ -342,6 +286,7 @@ $.ajax({
 $(document).ready(function() {
   loadVideo(defaultVideoId);
 }); 
+
 // Call to display prior movie searches
 renderPrevSearches();
 

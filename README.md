@@ -1,12 +1,12 @@
 # TrailerPhone OMDb-YouTube
 
 ## README Authors
-Peter Martinez
-Amninder Singh
-Sikander Dhaliwal
-Tony Magrady 
+Peter Martinez <br>
+Amninder Singh <br>
+Sikander Dhaliwal <br>
+Tony Magrady <br>
     - Berkeley Full-Stack Web Development Bootcamp students <br>
-    -- September 25, 2023
+    -- September 25, 2023 <br>
 a.k.a. Team "CodeFest"
 
 ## Description
@@ -37,6 +37,7 @@ N/A
 
 ## Usage
 This is a web application that provides interesting details about movies, and a built in function that pulls up the trailer for that movie when given a year for that title. <br>
+
 To put in user story terms:
 - As a lover of movies, I want to be able to see interesting information about movies such as the actors in the film, the name of the director, and the country of origin.
 - As a discerning viewer, I would also like to be able to get information as to whether or not a movie I am unfamiliar with might be worth watching. For this, I need the IMDB rating, the plot, the and an easily accessible trailer to watch.
