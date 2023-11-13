@@ -214,22 +214,31 @@ max-width: 100%;
 }
 /* BACKGROUND UTILS */
 .bg-primary {
-background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 .bg-info {
-background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 .bg-danger {
-background-color: #E64C66;
+    background-color: #E64C66;
 }
 .bg-dark {
-background-color: #1A1A1A;
+    background-color: #1A1A1A;
 }
 .bg-white {
-background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 .bg-black {
-background-color: #000000;
+    background-color: #000000;
+}
+.bg-aquamarine {
+    background-color: aquamarine;
+}
+.bg-light-cyan {
+    background-color: lightcyan;
+}
+.bg-cyan {
+    background-color: cyan;
 }
 .text-uppercase {
     text-transform: uppercase;

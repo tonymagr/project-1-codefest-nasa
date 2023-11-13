@@ -5,7 +5,7 @@ let savedMovieEl;
 let movieTitleEl = $('input[id="movie-title"]');
 let yearEl = $('input[id="year-input"]');
 let searchNameEl = $('input[id="search-name"]');
-let element, movieTitle, yearInp, posterElement, searchName, i, requestURL, savedMovie;
+let element, movieTitle, yearInp, posterElement, searchName, i, requestURL, savedMovie, filler, strLen;
 let defaultVideoId = 'rN7EAneK2ko';
 
 //Local storage variables
@@ -120,13 +120,27 @@ function renderPrevSearches () {
 
   // If there were any stored movies, render them 
   $.each(locStorArray, function(i) {
-    savedMovie = locStorArray[i].schName + " | " + locStorArray[i].movTitle + " | " + locStorArray[i].yr;
+    // Create filler at and of search name
+    strLen = 55 - locStorArray[i].schName.length + locStorArray[i].movTitle.length + 4;
+    if (strLen < 0) { strLen = 0; }
+
+    filler = ".";
+    for (let i = 0; i < strLen; i++) {
+      filler += ".";
+    }
+    // filler += ".";
+    savedMovie = locStorArray[i].schName + " | " + locStorArray[i].movTitle + " | " + locStorArray[i].yr + filler;
 
     prevSearchEl.append('<li id="li' + i + '">' + savedMovie + '</li>');
     savedMovieEl = $("#li"+i);
     savedMovieEl.css("font-weight","normal");
+    savedMovieEl.css("background-color","rgb(224,255,255)");
+    savedMovieEl.css("border","1px solid #57779A");
     savedMovieEl.addClass("small-text");
     savedMovieEl.data("data-index",i);
+
+    // Separate li text and buttons with in-line section
+    savedMovieEl.append('<section class="col-1 text-light">.</section>');
 
     // Create buttons on li
     savedMovieEl.append('<button id="btn' + i + '0">View Info</button>');
@@ -268,10 +282,21 @@ $.ajax({
   
       let videoDescription = data.items[0].snippet.description; {
         const description = document.getElementById('video-description');
-        description.innerHTML = videoDescription;
+        // Display video description if found; else place filler in field and white out.
+        if (videoDescription) {
+          description.style.color = "black";
+          description.innerHTML = videoDescription;
+        } else {
+          description.style.color = "white";
+          description.innerHTML = "...................................................................................................................................................... .......................";
+        }
       }
   
-      let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
+      savedMovieEl.css("background-color","rgb(224,255,255)");
+
+
+      // let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
+      let iframeHtml = `<iframe width="490" height="270" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
       // console.log("🚀 ~ data:", data);
       $('#video-container').html(iframeHtml);
     }
