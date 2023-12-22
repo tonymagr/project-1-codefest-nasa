@@ -46,6 +46,9 @@ async function getMovieInfo () {
     $("#poster-frame").empty();
     posterElement = `<img id="poster" alt="Film Poster" height="250px" width="160px" src="` + data.Poster + `"/>`
     $("#poster-frame").append(posterElement);
+    // No error - clear display
+    $("#error-message-d").css("color","white");
+    $("#error-message-d").html("x");
   }
   catch (err) {
     $("#error-message-d").css("color","black");
