@@ -9,8 +9,13 @@
           <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./Assets/CSS/style.css"/>
     <title>TrailerFone Movies</title>
+    <title>Welcome to TrailerFone!</title>
 </head>
 <body>
+    <header>
+    <h1> <- TrailerFone -> </h1>
+    <h2>The Movie Trailer Repository</h2>
+</header>
     <main class="col-auto p-4">
         <h1 class="text-4xl text-white shadow shadow slate-400 text-center font-bold bg-slate-50 bg-gradient-to-b from-purple-500 to-pink-500">Welcome To TrailerFone!</h1>
         <section class="flex-row col-12 p-2 auto-height">
@@ -56,8 +61,9 @@
         <section id="video-title-container">
             <div class = "font-bold text-white bg-purple-500 border max-w-md text-center" id="video-title"></div>
         </section>
+            <div id="video-title"></div>
         <section class="flex-row col-12 p-2">
-            <section id="video-container" class="col-6 p-2"></section>
+            <section id="video-container"></section>
             <section class="flex-row col-5 bg-light p-2 align-middle-ovrd align-center half-height">
                 <section class="m-1 p-0">
                     <!-- <p class="text-light">.</p> -->
@@ -77,14 +83,15 @@
         <section id="video-description-container" class="flex-row col-12 p-2">
             <div id="video-description" class="col-6 p-2 card-use card-rounded">
             </div>
+            <div id="video-description" class="col-6 p-2 card-use card-rounded"></div>
             <section id="prev-search-section" class="flex-row col-5 p-2 card-use card-rounded">
                 <ul id="previous-searches"></ul>
             </section>
-        </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js" crossorigin="anonymous"></script>
     <script src="./Assets/JS/script.js"></script>
 </body>
+
 </html>
 
