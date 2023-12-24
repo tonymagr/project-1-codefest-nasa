@@ -6,6 +6,26 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+/* Apply styles to the list items and buttons */
+#previous-searches {
+    list-style: none;
+    padding: 0;
+}
+#previous-searches li {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    margin: 10px 0;
+}
+#previous-searches button {
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+#previous-searches button:hover {
+    background-color: #57779A;
+}
 
 main {
     margin:auto;
@@ -202,9 +222,6 @@ max-width: 100%;
 .text-default {
     color: #AEAEAE;
 }
-.text-light {
-    color: #D9E9E8;
-}
 .text-dark {
     color: #000000;
 }
@@ -253,8 +270,6 @@ max-width: 100%;
     border-radius: 0.3rem;
     border: 1px solid transparent;
     outline: none;
-    color: #1A1A1A;
-    background-color: #AEAEAE;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 .btn:hover {
@@ -280,10 +295,7 @@ max-width: 100%;
     display: block;
     text-align: center;
 }
-.btn.btn-primary {
-    background-color: #2D3E50;
-    color: #D9E9E8;
-}
+    
 .btn.btn-primary:hover {
     background-color: #57779A;
 }

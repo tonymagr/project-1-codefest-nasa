@@ -9,7 +9,7 @@ let yearEl = $('input[id="year-input"]');
 let searchNameEl = $('input[id="search-name"]');
 
 let element, movieTitle, yearInp, posterElement, searchName, i, requestURL, savedMovie, filler, strLen;
-let defaultVideoId = 'rN7EAneK2ko';
+let defaultVideoId = 'utntGgcsZWI';
 
 //Local storage variables
 let locStorArray = [];
@@ -139,20 +139,19 @@ function renderPrevSearches () {
 
     prevSearchEl.append('<li id="li' + i + '">' + savedMovie + '</li>');
     savedMovieEl = $("#li"+i);
-    savedMovieEl.css("font-weight","normal");
     savedMovieEl.css("background-color","rgb(224,255,255)");
     savedMovieEl.css("border","1px solid #57779A");
     savedMovieEl.addClass("small-text");
     savedMovieEl.data("data-index",i);
 
     // Separate li text and buttons with in-line section
-    savedMovieEl.append('<section class="col-1 text-light">.</section>');
+    savedMovieEl.append('<section class="col-1">.</section>');
 
     // Create buttons on li
     savedMovieEl.append('<button id="btn' + i + '0">View Info</button>');
-    $("#btn" + i + "0").addClass("btn-basic view-button");
+    $("#btn" + i + "0").addClass("btn-basic view-button bg-purple-500");
     savedMovieEl.append('<button id="btn' + i + '1">Delete Item</button>');
-    $("#btn" + i + "1").addClass("btn-basic delete-button");
+    $("#btn" + i + "1").addClass("btn-basic bg-purple-500 text-black");
   })
 }
 
@@ -265,6 +264,9 @@ function renderVideo () {
   }
 }
 
+
+// Load video elements
+
 // Get video from ajax API call to YouTube
 
 function loadVideo (videoId) {
@@ -286,9 +288,17 @@ $.ajax({
         snippet.innerHTML = 'Video Title: ' + videoTitle;
       }
       
-  
+      function trimDescription (description, maxLength) {
+        if (description.length > maxLength) {
+          return description.substring(0, maxLength) + '... Please visit YouTube for the rest of the video description';
+        }
+        return description;
+      } 
+
       let videoDescription = data.items[0].snippet.description; {
         const description = document.getElementById('video-description');
+        const maxDescription = 250;
+        videoDescription = trimDescription(videoDescription, maxDescription);
         // Display video description if found; else place filler in field and white out.
         if (videoDescription) {
           description.style.color = "black";
@@ -302,9 +312,8 @@ $.ajax({
       savedMovieEl.css("background-color","rgb(224,255,255)");
 
 
-      // let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
       let iframeHtml = `<iframe width="490" height="270" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
-      // console.log("🚀 ~ data:", data);
+       // console.log("🚀 ~ data:", data);
     
       $('#video-container').html(iframeHtml);
     }
