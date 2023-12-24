@@ -1,3 +1,5 @@
+// Define global variables
+
 const titleFormEl = $("#movie-form");
 const searchesFormEl = $("#searches-form");
 const prevSearchEl = $("#previous-searches");
@@ -5,6 +7,7 @@ let savedMovieEl;
 let movieTitleEl = $('input[id="movie-title"]');
 let yearEl = $('input[id="year-input"]');
 let searchNameEl = $('input[id="search-name"]');
+
 let element, movieTitle, yearInp, posterElement, searchName, i, requestURL, savedMovie, filler, strLen;
 let defaultVideoId = 'rN7EAneK2ko';
 
@@ -224,11 +227,10 @@ function resetLocalStorage () {
   }
 }
 
-// Pass search button info from OMDB API to YouTube
+// API Call requesting a video with specified parameters
 
 function renderVideo () {
   if (mTitle) {
-    // Render video
     const youtubeRequest = {
       key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
       q: mTitle + mYear +  'trailer',
@@ -236,7 +238,8 @@ function renderVideo () {
       maxResults: 1,
       type: 'video'
     };
-    // q: movieTitle + yearInp +  'trailer',
+
+// Retrieve a video if data contains items, else throw an error
 
     $.ajax({
       url: "https://www.googleapis.com/youtube/v3/search",
@@ -247,10 +250,7 @@ function renderVideo () {
           const videoItem = data.items[0];
           const videoId = videoItem.id.videoId;
           loadVideo(videoId);
-        } else {
-          let modal = document.getElementById('modal');
-          let btn = document.getElementsByClassName('.btn-block.btn-primary');
-        }
+        } 
       },
       error: function (error) {
         console.error("Error fetching data", error);
@@ -265,6 +265,8 @@ function renderVideo () {
   }
 }
 
+// Get video from ajax API call to YouTube
+
 function loadVideo (videoId) {
 $.ajax({
     url: "https://www.googleapis.com/youtube/v3/videos",
@@ -275,11 +277,13 @@ $.ajax({
     id: videoId
   },
 
+  // Load YouTube API response data field 'snippet' containing video title field
+
     success: function (data) {
       
       let videoTitle = data.items[0].snippet.title; {
         const snippet = document.getElementById('video-title');
-        snippet.innerHTML = videoTitle;
+        snippet.innerHTML = 'Video Title: ' + videoTitle;
       }
       
   
@@ -301,16 +305,14 @@ $.ajax({
       // let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
       let iframeHtml = `<iframe width="490" height="270" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
       // console.log("🚀 ~ data:", data);
+    
       $('#video-container').html(iframeHtml);
     }
   });
   }
 
-// -------
-// MAIN
-// -------
 
-// Load video
+// Load the default video to the page
 $(document).ready(function() {
   loadVideo(defaultVideoId);
 }); 
