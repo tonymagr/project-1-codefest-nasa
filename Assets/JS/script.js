@@ -7,8 +7,9 @@ let savedMovieEl;
 let movieTitleEl = $('input[id="movie-title"]');
 let yearEl = $('input[id="year-input"]');
 let searchNameEl = $('input[id="search-name"]');
-let element, movieTitle, yearInp, posterElement, searchName, i, requestURL, savedMovie;
-let defaultVideoId = 'Bmuo45NR6qE';
+
+let element, movieTitle, yearInp, posterElement, searchName, i, requestURL, savedMovie, filler, strLen;
+let defaultVideoId = 'rN7EAneK2ko';
 
 //Local storage variables
 let locStorArray = [];
@@ -48,6 +49,9 @@ async function getMovieInfo () {
     $("#poster-frame").empty();
     posterElement = `<img id="poster" alt="Film Poster" height="250px" width="160px" src="` + data.Poster + `"/>`
     $("#poster-frame").append(posterElement);
+    // No error - clear display
+    $("#error-message-d").css("color","white");
+    $("#error-message-d").html("x");
   }
   catch (err) {
     $("#error-message-d").css("color","black");
@@ -122,13 +126,27 @@ function renderPrevSearches () {
 
   // If there were any stored movies, render them 
   $.each(locStorArray, function(i) {
-    savedMovie = locStorArray[i].schName + " | " + locStorArray[i].movTitle + " | " + locStorArray[i].yr;
+    // Create filler at and of search name
+    strLen = 55 - locStorArray[i].schName.length + locStorArray[i].movTitle.length + 4;
+    if (strLen < 0) { strLen = 0; }
+
+    filler = ".";
+    for (let i = 0; i < strLen; i++) {
+      filler += ".";
+    }
+    // filler += ".";
+    savedMovie = locStorArray[i].schName + " | " + locStorArray[i].movTitle + " | " + locStorArray[i].yr + filler;
 
     prevSearchEl.append('<li id="li' + i + '">' + savedMovie + '</li>');
     savedMovieEl = $("#li"+i);
     savedMovieEl.css("font-weight","normal");
+    savedMovieEl.css("background-color","rgb(224,255,255)");
+    savedMovieEl.css("border","1px solid #57779A");
     savedMovieEl.addClass("small-text");
     savedMovieEl.data("data-index",i);
+
+    // Separate li text and buttons with in-line section
+    savedMovieEl.append('<section class="col-1 text-light">.</section>');
 
     // Create buttons on li
     savedMovieEl.append('<button id="btn' + i + '0">View Info</button>');
@@ -267,9 +285,27 @@ $.ajax({
         const snippet = document.getElementById('video-title');
         snippet.innerHTML = 'Video Title: ' + videoTitle;
       }
+      
+  
+      let videoDescription = data.items[0].snippet.description; {
+        const description = document.getElementById('video-description');
+        // Display video description if found; else place filler in field and white out.
+        if (videoDescription) {
+          description.style.color = "black";
+          description.innerHTML = videoDescription;
+        } else {
+          description.style.color = "white";
+          description.innerHTML = "...................................................................................................................................................... .......................";
+        }
+      }
+  
+      savedMovieEl.css("background-color","rgb(224,255,255)");
 
-  // Create video container and set dimensions
-      let iframeHtml = `<iframe width="600" height="400" src="https://www.youtube.com/embed/${videoId}";frameborder="10" allowfullscreen></iframe>`;
+
+      // let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
+      let iframeHtml = `<iframe width="490" height="270" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
+      // console.log("🚀 ~ data:", data);
+    
       $('#video-container').html(iframeHtml);
     }
   });

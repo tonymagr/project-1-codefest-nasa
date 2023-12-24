@@ -17,51 +17,58 @@
     <main class="col-auto p-4">
         <section class="flex-row col-12 p-2 auto-height">
             <section class="flex-row col-4 bg-light p-2 justify-center">
-                <form id="movie-form" class="card-use card-rounded bg-link p-0">
+                <form id="movie-form" class="card-use card-rounded p-0">
                     <fieldset>
                         <legend class="text-black">Search For Movies:</legend>
-                        <label class="small-text text-black" for="movie-title">Movie Title:</label>
-                        <input type="text" id="movie-title" name="movie-title" class="small-text"/>
-                        <label class="small-text text-black" for="year-input">Year (optional):</label>
-                        <input type="text" id="year-input" name="year-input" class="small-text"/>
+                        <label class="mid-text text-black" for="movie-title">Movie Title:</label>
+                        <input type="text" id="movie-title" name="movie-title" class="mid-text"/>
+                        <label class="mid-text text-black" for="year-input">Year (optional):</label>
+                        <input type="text" id="year-input" name="year-input" class="mid-text"/>
                     </fieldset>
                     <button class="btn btn-block btn-primary">Search</button>
                 </form>
             </section>
             <section class="flex-row col-7 bg-light p-2">
-                <section class="card-use card-rounded col-4-ovrd bg-link p-0">
-                    <p id="title" class="small-text text-black"></p>
-                    <p id="actors" class="small-text text-black"></p>
-                    <p id="awards" class="small-text text-black"></p>
-                    <p id="country" class="small-text text-black"></p>
-                    <p id="director" class="small-text text-black"></p>
-                    <p id="genre" class="small-text text-black"></p>
-                    <p id="rated" class="small-text text-black"></p>
-                    <p id="released" class="small-text text-black"></p>
+                <section class="card-use card-rounded col-4-ovrd p-0">
+                    <p id="title" class="mid-text text-black"></p>
+                    <p id="actors" class="mid-text text-black"></p>
+                    <p id="awards" class="mid-text text-black"></p>
+                    <p id="country" class="mid-text text-black"></p>
+                    <p id="director" class="mid-text text-black"></p>
+                    <p id="genre" class="mid-text text-black"></p>
+                    <p id="rated" class="mid-text text-black"></p>
+                    <p id="released" class="mid-text text-black"></p>
                 </section>
-                <section class="card-use card-rounded col-4-ovrd bg-link p-0">
-                    <p id="language" class="small-text text-black"></p>
-                    <p id="imdb-rating" class="small-text text-black"></p>
-                    <p id="runtime" class="small-text text-black"></p>
-                    <p id="plot-label" class="small-text text-black p-plot"></p>
-                    <p id="plot" class="small-text text-black p-plot"></p>
+                <section class="card-use card-rounded col-4-ovrd p-0">
+                    <p id="language" class="mid-text text-black"></p>
+                    <p id="imdb-rating" class="mid-text text-black"></p>
+                    <p id="runtime" class="mid-text text-black"></p>
+                    <p id="plot-label" class="mid-text text-black p-plot"></p>
+                    <p id="plot" class="mid-text text-black p-plot"></p>
                 </section>
-                <section id="poster-frame" class="is-visible text-center card-use card-rounded col-4-ovrd bg-link p-0"></section>
+                <section id="poster-frame" class="is-visible text-center card-use card-rounded col-4-ovrd p-0"></section>
             </section>
         </section>
-        <section class="flex-row align-right col-11 p-2">
-            <section class="flex-row align-center col-5 bg-light p-2">
+        <section class="flex-row align-left col-12 p-2">
+            <section class="flex-row align-center col-4 bg-light p-2">
                 <section id="error-message-d" 
-                        class="card-use card-rounded col-5 bg-link small-text text-light med-height">x</section>
+                        class="card-use card-rounded col-6 mid-text text-light med-height">x</section>
             </section>
         </section>
             <div id="video-title"></div>
         <section class="flex-row col-12 p-2">
             <section id="video-container"></section>
             <section class="flex-row col-5 bg-light p-2 align-middle-ovrd align-center half-height">
-                <form id="searches-form" class="card-use card-rounded bg-link p-0">
+                <section class="m-1 p-0">
+                    <!-- <p class="text-light">.</p> -->
+                    <p class="mid-text text-center">Save this search by a name of your choice.</p>
+                    <p class="mid-text text-center">(Searches are not saved automatically.)</p>
+                    <!-- <p class="text-light">.</p> -->
+                </section>
+                <section class="col-11 text-light">.</section>
+                <form id="searches-form" class="card-use card-rounded p-0">
                     <label class="mid-text text-black" for="search-name">Search Name:</label>
-                    <input type="text" id="search-name" name="search-name" class="small-text" placeholder="Enter new search name."/>
+                    <input type="text" id="search-name" name="search-name" class="mid-text" placeholder="Enter new search name."/>
                     <button class="btn btn-block btn-primary">Save Search</button>
                 </form>
             </section>
