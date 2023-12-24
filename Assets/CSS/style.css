@@ -20,7 +20,28 @@ h1 {
     border: blue;
     border-style:groove;
     background-color: black;
-    text-shadow: 2px 2px 4px #5F5F5F;
+    text-shadow: 4px 4px 4px blue;
+}
+
+h2 {
+    text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    color: white;
+    border: blue;
+    border-style:groove;
+    background-color: black;
+    text-shadow: 4px 4px 4px blue;
+}
+
+#video-title{
+    width: 75%;
+    color: white;
+    text-align: justify;
+    font-weight: 700;
+    background-color: black;
+    border: blue;
+    border-style: groove;
 }
 
 /* Additional Styles */
@@ -214,13 +235,7 @@ max-width: 91.66667%;
 .btn.btn-light:hover {
     background-color: #84B8B4;
 }
-.btn.btn-dark {
-    background-color: #BA2424;
-    color: #D9E9E8;
-}
-.btn.btn-dark:hover {
-    background-color: #5F5F5F;
-}
+
 .btn.btn-white {
     background-color: #FFFFFF;
     color: #1A1A1A;

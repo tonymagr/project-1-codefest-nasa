@@ -265,11 +265,11 @@ $.ajax({
       
       let videoTitle = data.items[0].snippet.title; {
         const snippet = document.getElementById('video-title');
-        snippet.innerHTML = videoTitle;
+        snippet.innerHTML = 'Video Title: ' + videoTitle;
       }
 
   // Create video container and set dimensions
-      let iframeHtml = `<iframe width="560" height="300" src="https://www.youtube.com/embed/${videoId}";frameborder="10" allowfullscreen></iframe>`;
+      let iframeHtml = `<iframe width="600" height="400" src="https://www.youtube.com/embed/${videoId}";frameborder="10" allowfullscreen></iframe>`;
       $('#video-container').html(iframeHtml);
     }
   });
