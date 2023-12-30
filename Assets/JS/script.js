@@ -95,9 +95,6 @@ prevSearchEl.on("click", function(event) {
     // View movie info
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
-    console.log('i',i);
-    console.log('emb', element.matches("button"));
-    console.log('element.className',element.className.substring(10,21));
     requestURL = locStorArray[i].omdbUrl
 
     renderAllMovieData();
@@ -107,9 +104,6 @@ prevSearchEl.on("click", function(event) {
     // Delete saved search (li) row
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
-    console.log('i',i);
-    console.log('emb', element.matches("button"));
-    console.log('element.className',element.className.substring(10,23));
 
     locStorArray.splice(i,1);
     // Call to remove item from local storage
