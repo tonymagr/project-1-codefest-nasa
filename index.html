@@ -13,11 +13,9 @@
 </head>
 <body>
     <header>
-    <h1> <- TrailerFone -> </h1>
-    <h2>The Movie Trailer Repository</h2>
-</header>
     <main class="col-auto p-4">
         <h1 class="text-4xl text-white shadow shadow slate-400 text-center font-bold bg-slate-50 bg-gradient-to-b from-purple-500 to-pink-500">Welcome To TrailerFone!</h1>
+    </header>
         <section class="flex-row col-12 p-2 auto-height">
             <section class="flex-row col-4 bg-light p-2 justify-center">
                 <form id="movie-form" class="card-use card-rounded p-0">
@@ -58,12 +56,14 @@
                         class="card-use card-rounded col-6 mid-text text-light med-height">x</section>
             </section>
         </section>
-        <section id="video-title-container">
+        <section id="video-title-container" class="ml-20">
             <div class = "font-bold text-white bg-purple-500 border max-w-md text-center" id="video-title"></div>
         </section>
             <div id="video-title"></div>
         <section class="flex-row col-12 p-2">
-            <section id="video-container"></section>
+            <section id="video-container" class="ml-20">
+
+            </section>
             <section class="flex-row col-5 bg-light p-2 align-middle-ovrd align-center half-height">
                 <section class="m-1 p-0">
                     <!-- <p class="text-light">.</p> -->
@@ -71,8 +71,8 @@
                     <p class="mid-text text-center">(Searches are not saved automatically.)</p>
                     <!-- <p class="text-light">.</p> -->
                 </section>
-                <section class="col-11 text-light">.</section>
-                <form id="searches-form" class="card-use card-rounded p-0 bg-purple-500 font-bold text-center">
+                <section class="col-11">.</section>
+                <form id="searches-form" class="card-use card-rounded p-0 bg-purple-500 font-bold text-center ml-20">
                     <label class="mid-text font-bold text-center text-white" for="search-name">Search Name:</label>
                     <input type="text" id="search-name" name="search-name" class="mid-text" placeholder="Enter new search name."/>
                     <button class="btn btn-block btn-primary text-white">Save Search</button>
@@ -94,4 +94,3 @@
 </body>
 
 </html>
-

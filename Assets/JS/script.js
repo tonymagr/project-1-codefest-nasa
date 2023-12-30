@@ -91,7 +91,7 @@ async function renderAllMovieData () {
 prevSearchEl.on("click", function(event) {
   element = event.target;
 
-  if (element.matches("button") && element.className.substring(10,30).trim() === "view-button") {
+  if (element.matches("button") || element.className.substring(10,30).trim() === "view-button") {
     // View movie info
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
@@ -100,7 +100,7 @@ prevSearchEl.on("click", function(event) {
     renderAllMovieData();
   }
 
-  if (element.matches("button") && element.className.substring(10,30).trim() === "delete-button") {
+  if (element.matches("button") || element.className.substring(10,30).trim() === "delete-button") {
     // Delete saved search (li) row
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
@@ -309,7 +309,7 @@ $.ajax({
         }
       }
   
-      savedMovieEl.css("background-color","rgb(224,255,255)");
+  
 
 
       let iframeHtml = `<iframe width="490" height="270" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
@@ -332,3 +332,4 @@ renderPrevSearches();
 // Listen for submit events on the forms
 titleFormEl.on("submit", titleFormSubmit);
 searchesFormEl.on("submit",searchNameFormSubmit);
+
