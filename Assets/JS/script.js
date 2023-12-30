@@ -47,7 +47,7 @@ async function getMovieInfo () {
     $("#runtime").text("Run-time: " + data.Runtime);
     // Place poster
     $("#poster-frame").empty();
-    posterElement = `<img id="poster" alt="Film Poster" height="250px" width="160px" src="` + data.Poster + `"/>`
+    posterElement = `<img id="poster" alt="Film Poster" height="265px" width="175px" src="` + data.Poster + `"/>`
     $("#poster-frame").append(posterElement);
     // No error - clear display
     $("#error-message-d").css("color","white");
@@ -91,19 +91,26 @@ async function renderAllMovieData () {
 prevSearchEl.on("click", function(event) {
   element = event.target;
 
-  if (element.matches("button") || element.className.substring(10,30).trim() === "view-button") {
+  if (element.matches("button") && element.className.substring(10,21) === "view-button") {
     // View movie info
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
+    console.log('i',i);
+    console.log('emb', element.matches("button"));
+    console.log('element.className',element.className.substring(10,21));
     requestURL = locStorArray[i].omdbUrl
 
     renderAllMovieData();
   }
 
-  if (element.matches("button") || element.className.substring(10,30).trim() === "delete-button") {
+  if (element.matches("button") && element.className.substring(10,23) === "delete-button") {
     // Delete saved search (li) row
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
+    console.log('i',i);
+    console.log('emb', element.matches("button"));
+    console.log('element.className',element.className.substring(10,23));
+
     locStorArray.splice(i,1);
     // Call to remove item from local storage
     resetLocalStorage();
@@ -127,21 +134,21 @@ function renderPrevSearches () {
   // If there were any stored movies, render them 
   $.each(locStorArray, function(i) {
     // Create filler at and of search name
-    strLen = 55 - locStorArray[i].schName.length + locStorArray[i].movTitle.length + 4;
+    strLen = 50 - locStorArray[i].schName.length + locStorArray[i].movTitle.length + 4;
     if (strLen < 0) { strLen = 0; }
 
     filler = ".";
-    for (let i = 0; i < strLen; i++) {
+    for (let j = 0; j < strLen; j++) {
       filler += ".";
     }
     // filler += ".";
-    savedMovie = locStorArray[i].schName + " | " + locStorArray[i].movTitle + " | " + locStorArray[i].yr + filler;
+    savedMovie = locStorArray[i].schName + " | " + locStorArray[i].movTitle + " | " + locStorArray[i].yr;
 
-    prevSearchEl.append('<li id="li' + i + '">' + savedMovie + '</li>');
+    prevSearchEl.append('<li id="li' + i + '">' + savedMovie + '<span style="color: rgb(224,255,255)">' + filler + '</span></li>');
     savedMovieEl = $("#li"+i);
     savedMovieEl.css("background-color","rgb(224,255,255)");
     savedMovieEl.css("border","1px solid #57779A");
-    savedMovieEl.addClass("small-text");
+    savedMovieEl.addClass("mid-text-b");
     savedMovieEl.data("data-index",i);
 
     // Separate li text and buttons with in-line section
@@ -151,7 +158,7 @@ function renderPrevSearches () {
     savedMovieEl.append('<button id="btn' + i + '0">View Info</button>');
     $("#btn" + i + "0").addClass("btn-basic view-button bg-purple-500");
     savedMovieEl.append('<button id="btn' + i + '1">Delete Item</button>');
-    $("#btn" + i + "1").addClass("btn-basic bg-purple-500 text-black");
+    $("#btn" + i + "1").addClass("btn-basic delete-button bg-purple-500 text-black");
   })
 }
 
@@ -309,9 +316,6 @@ $.ajax({
         }
       }
   
-  
-
-
       let iframeHtml = `<iframe width="490" height="270" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
        // console.log("🚀 ~ data:", data);
     
@@ -325,6 +329,9 @@ $.ajax({
 $(document).ready(function() {
   loadVideo(defaultVideoId);
 }); 
+
+// Clear error message display
+$("#error-message-d").css("color","white");
 
 // Call to display prior movie searches
 renderPrevSearches();
