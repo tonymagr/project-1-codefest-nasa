@@ -13,23 +13,25 @@ let defaultVideoId = 'utntGgcsZWI';
 
 //Local storage variables
 let locStorArray = [];
-let movieEntry = {schName:"", movTitle:"", yr:"", omdbUrl:""};
+let movieEntry = { schName: "", movTitle: "", yr: "", omdbUrl: "" };
 
 // Save select movie attributes for use in functions
 let mTitle = "";
 let mYear, mRequestURL, videoId;
 
 
-async function getMovieInfo () {
+// Retrieve movie info from OMDB
+
+async function getMovieInfo() {
   try {
     const response = await fetch(requestURL);
     const data = await response.json();
     if (!response.ok) {
-      $("#error-message-d").css("color","black");
+      $("#error-message-d").css("color", "black");
       $("#error-message-d").html("OMDb call: " + response.statusText);
       return;
     }
-    //Populate result fields
+    // Populate result fields
     $("#title").text("Title: " + data.Title);
     mTitle = data.Title;
     $("#actors").text("Actors: " + data.Actors);
@@ -50,11 +52,11 @@ async function getMovieInfo () {
     posterElement = `<img id="poster" alt="Film Poster" height="265px" width="175px" src="` + data.Poster + `"/>`
     $("#poster-frame").append(posterElement);
     // No error - clear display
-    $("#error-message-d").css("color","white");
+    $("#error-message-d").css("color", "white");
     $("#error-message-d").html("x");
   }
   catch (err) {
-    $("#error-message-d").css("color","black");
+    $("#error-message-d").css("color", "black");
     $("#error-message-d").html("OMDb call: JSON or fetch error");
   }
 }
@@ -67,7 +69,7 @@ function titleFormSubmit(event) {
 
   // Clear input fields
   $('input[type="text"]').val("");
-  
+
   // Construct URL for fetch, and Fetch IMDb data for selected movie
 
   if (yearInp === "" || yearInp === 0) {
@@ -80,7 +82,7 @@ function titleFormSubmit(event) {
   renderAllMovieData();
 }
 
-async function renderAllMovieData () {
+async function renderAllMovieData() {
   // Make OMDb API call
   await getMovieInfo();
 
@@ -88,10 +90,10 @@ async function renderAllMovieData () {
   renderVideo();
 }
 
-prevSearchEl.on("click", function(event) {
+prevSearchEl.on("click", function (event) {
   element = event.target;
 
-  if (element.matches("button") && element.className.substring(10,21) === "view-button") {
+  if (element.matches("button") && element.className.substring(10, 21) === "view-button") {
     // View movie info
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
@@ -100,12 +102,12 @@ prevSearchEl.on("click", function(event) {
     renderAllMovieData();
   }
 
-  if (element.matches("button") && element.className.substring(10,23) === "delete-button") {
+  if (element.matches("button") && element.className.substring(10, 23) === "delete-button") {
     // Delete saved search (li) row
     // Button IDs are in format btnx0 or btnx1 where x is the li row. Element/buttonid[3] is the 4th character.
     i = element.id[3];
 
-    locStorArray.splice(i,1);
+    locStorArray.splice(i, 1);
     // Call to remove item from local storage
     resetLocalStorage();
 
@@ -114,7 +116,7 @@ prevSearchEl.on("click", function(event) {
   }
 });
 
-function renderPrevSearches () {
+function renderPrevSearches() {
   // Retrieve movie-searches array of "movie search" objects from storage
   locStorArray = JSON.parse(localStorage.getItem("movie-searches"));
   if (locStorArray === null) {
@@ -123,10 +125,10 @@ function renderPrevSearches () {
   // Clear previous searches (UL) display
   prevSearchEl.html("");
   prevSearchEl.html("Previous Searches");
-  prevSearchEl.addClass("strong-ovrd");  
+  prevSearchEl.addClass("strong-ovrd");
 
   // If there were any stored movies, render them 
-  $.each(locStorArray, function(i) {
+  $.each(locStorArray, function (i) {
     // Create filler at and of search name
     strLen = 50 - locStorArray[i].schName.length + locStorArray[i].movTitle.length + 4;
     if (strLen < 0) { strLen = 0; }
@@ -139,11 +141,11 @@ function renderPrevSearches () {
     savedMovie = locStorArray[i].schName + " | " + locStorArray[i].movTitle + " | " + locStorArray[i].yr;
 
     prevSearchEl.append('<li id="li' + i + '">' + savedMovie + '<span style="color: rgb(224,255,255)">' + filler + '</span></li>');
-    savedMovieEl = $("#li"+i);
-    savedMovieEl.css("background-color","rgb(224,255,255)");
-    savedMovieEl.css("border","1px solid #57779A");
+    savedMovieEl = $("#li" + i);
+    savedMovieEl.css("background-color", "rgb(224,255,255)");
+    savedMovieEl.css("border", "1px solid #57779A");
     savedMovieEl.addClass("mid-text-b");
-    savedMovieEl.data("data-index",i);
+    savedMovieEl.data("data-index", i);
 
     // Separate li text and buttons with in-line section
     savedMovieEl.append('<section class="col-1">.</section>');
@@ -170,33 +172,33 @@ function searchNameFormSubmit(event) {
   // Check for input errors...
   // No movie selected
   if (mTitle === "") {
-    $("#error-message-d").css("color","black");
+    $("#error-message-d").css("color", "black");
     $("#error-message-d").html("No movie selected.");
     return;
   }
   // No search name entered
   if (searchName === "") {
-    $("#error-message-d").css("color","black");
+    $("#error-message-d").css("color", "black");
     $("#error-message-d").html("No search name selected.");
     return;
   }
   // Name already used
   for (i = 0; i < locStorArray.length; i++) {
     // Case insensitive compare (localeCompare returns 0 if equal and non-0 if not. Must bang it for truthy.)
-    if (!searchName.localeCompare(locStorArray[i].schName,undefined,{sensitivity: "accent"})) {
-      $("#error-message-d").css("color","black");
+    if (!searchName.localeCompare(locStorArray[i].schName, undefined, { sensitivity: "accent" })) {
+      $("#error-message-d").css("color", "black");
       $("#error-message-d").html("Search name already used.");
       return;
     }
   }
   // Max saves reached
   if (locStorArray.length >= 7) {
-    $("#error-message-d").css("color","black");
+    $("#error-message-d").css("color", "black");
     $("#error-message-d").html("Maximum 7 saved searches.");
     return;
   }
   // No error - clear display
-  $("#error-message-d").css("color","white");
+  $("#error-message-d").css("color", "white");
   $("#error-message-d").html("x");
 
   // Save in local storage and internal array
@@ -205,14 +207,14 @@ function searchNameFormSubmit(event) {
   movieEntry.yr = mYear;
   movieEntry.omdbUrl = requestURL;
   locStorArray.push(movieEntry);
-  
+
   localStorage.setItem("movie-searches", JSON.stringify(locStorArray));
 
   // Clear and call to display updated movie searches
   renderPrevSearches();
 }
 
-function resetLocalStorage () {
+function resetLocalStorage() {
   // Delete local storage, to be reloaded from saved array
   localStorage.removeItem("movie-searches");
 
@@ -222,24 +224,24 @@ function resetLocalStorage () {
     movieEntry.movTitle = locStorArray[i].movTitle;
     movieEntry.yr = locStorArray[i].yr;
     movieEntry.omdbUrl = locStorArray[i].omdbUrl;
-  
+
     localStorage.setItem("movie-searches", JSON.stringify(locStorArray));
   }
 }
 
 // API Call requesting a video with specified parameters
 
-function renderVideo () {
+function renderVideo() {
   if (mTitle) {
     const youtubeRequest = {
       key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
-      q: mTitle + mYear +  'trailer',
+      q: mTitle + mYear + 'trailer',
       part: 'snippet',
       maxResults: 1,
       type: 'video'
     };
 
-// Retrieve a video if data contains items, else throw an error
+    // Retrieve a video if data contains items, else throw an error
 
     $.ajax({
       url: "https://www.googleapis.com/youtube/v3/search",
@@ -250,16 +252,16 @@ function renderVideo () {
           const videoItem = data.items[0];
           const videoId = videoItem.id.videoId;
           loadVideo(videoId);
-        } 
+        }
       },
       error: function (error) {
         console.error("Error fetching data", error);
-        $("#error-message-d").css("color","black");
+        $("#error-message-d").css("color", "black");
         $("#error-message-d").html("Cannot retrieve video.");
       }
     });
   } else {
-    $("#error-message-d").css("color","black");
+    $("#error-message-d").css("color", "black");
     $("#error-message-d").html("Movie title not found.");
     loadVideo(defaultVideoId);
   }
@@ -270,31 +272,31 @@ function renderVideo () {
 
 // Get video from ajax API call to YouTube
 
-function loadVideo (videoId) {
-$.ajax({
+function loadVideo(videoId) {
+  $.ajax({
     url: "https://www.googleapis.com/youtube/v3/videos",
     dataType: 'json',
     data: {
-    key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
-    part: 'snippet',
-    id: videoId
-  },
+      key: 'AIzaSyDsqAm-TP-sJdITlkImb4cirbX7zwJUfBI',
+      part: 'snippet',
+      id: videoId
+    },
 
-  // Load YouTube API response data field 'snippet' containing video title field
+    // Load YouTube API response data field 'snippet' containing video title field
 
     success: function (data) {
-      
+
       let videoTitle = data.items[0].snippet.title; {
         const snippet = document.getElementById('video-title');
         snippet.innerHTML = 'Video Title: ' + videoTitle;
       }
-      
-      function trimDescription (description, maxLength) {
+
+      function trimDescription(description, maxLength) {
         if (description.length > maxLength) {
           return description.substring(0, maxLength) + '... Please visit YouTube for the rest of the video description';
         }
         return description;
-      } 
+      }
 
       let videoDescription = data.items[0].snippet.description; {
         const description = document.getElementById('video-description');
@@ -309,28 +311,27 @@ $.ajax({
           description.innerHTML = "...................................................................................................................................................... .......................";
         }
       }
-  
+
       let iframeHtml = `<iframe width="490" height="270" src="https://www.youtube.com/embed/${videoId}";frameborder="0" allowfullscreen></iframe>`;
-       // console.log("🚀 ~ data:", data);
-    
+
       $('#video-container').html(iframeHtml);
     }
   });
-  }
+}
 
 
 // Load the default video to the page
-$(document).ready(function() {
+$(document).ready(function () {
   loadVideo(defaultVideoId);
-}); 
+});
 
 // Clear error message display
-$("#error-message-d").css("color","white");
+$("#error-message-d").css("color", "white");
 
 // Call to display prior movie searches
 renderPrevSearches();
 
 // Listen for submit events on the forms
 titleFormEl.on("submit", titleFormSubmit);
-searchesFormEl.on("submit",searchNameFormSubmit);
+searchesFormEl.on("submit", searchNameFormSubmit);
 
