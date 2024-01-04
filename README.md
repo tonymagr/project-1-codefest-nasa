@@ -1,5 +1,7 @@
 # TrailerPhone OMDb-YouTube
 
+* Please note in December 2024, Tony and Peter split off to continue work on project 1. We asked the other two team members to join our effort, but they were unresponsive. We are resubmitting this updated version of the project as a pair, but leaving them as authors since they did contribute in the initial page launch. *
+
 ## README Authors
 Peter Martinez <br>
 Amninder Singh <br>
@@ -18,6 +20,9 @@ Deployed web page: https://tonymagr.github.io/project1-trailer-phone-imyou/
 ## Process
 - Technologies used:
   - HTML, CSS, JavaScript, jQuery, AJAX, JSON
+  *Updated January 2024*
+  - Added Tailwind, which Peter picked up during the quarter to help apply some final styling
+
 - Breakdown of tasks and roles: 
   - Tony worked on the OMDB API and local data storage, and was assistant scrum master
   - Peter worked on YouTUbe API and the consolidation of input fields between the two APIs
@@ -25,7 +30,8 @@ Deployed web page: https://tonymagr.github.io/project1-trailer-phone-imyou/
   - Amninder performed CSS styling and was scrum master
 
 ## Website Image
-![Website Image](./Assets/IMG/deployed-page.jpg)
+![Website Image](./Assets/IMG/deployed-page.png)
+![Website Image](./Assets//IMG/deployed-page-2.png)
 
 ## Challenges
 - Peter had a difficult time redirecting Tony's input fields to the YouTube API
@@ -49,7 +55,7 @@ The TAs, who helped us with git branching and other repo management, and API sel
 ## License (Using one team member's on behalf of the CodeFest team)
 MIT License
 
-Copyright (c) 2023 Tony Magrady
+Copyright (c) 2023 Tony Magrady, Peter Martinez
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
